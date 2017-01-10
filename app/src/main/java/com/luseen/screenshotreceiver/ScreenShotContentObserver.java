@@ -29,13 +29,11 @@ public class ScreenShotContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
-        Log.e("onChange ", "onChangsssse");
         super.onChange(selfChange);
     }
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        //Log.e("onChange ", "onChange" + uri);
         // if (uri.toString().matches(MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString() + "/[0-9]+")) {
         Cursor cursor = null;
         try {
