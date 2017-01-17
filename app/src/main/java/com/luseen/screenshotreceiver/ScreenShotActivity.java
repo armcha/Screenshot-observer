@@ -35,13 +35,13 @@ public class ScreenShotActivity extends AppCompatActivity {
         String path = getIntent().getStringExtra(PATH_INTENT_KEY);
         String fileName = getIntent().getStringExtra(FILENAME_INTENT_KEY);
 
-        File imgFile = new File(path);
-        if (imgFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        File screenshotFile = new File(path);
+        if (screenshotFile.exists()) {
+            Bitmap screenshotBitmap = BitmapFactory.decodeFile(screenshotFile.getAbsolutePath());
             ImageView screenShotImage = (ImageView) findViewById(R.id.screenshot_image);
             screenShotImage.setScaleX(0.7f);
             screenShotImage.setScaleY(0.7f);
-            screenShotImage.setImageBitmap(myBitmap);
+            screenShotImage.setImageBitmap(screenshotBitmap);
         }
     }
 }

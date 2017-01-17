@@ -6,6 +6,6 @@ public class ScreenShotService extends ScreenshotObserverService {
 
     @Override
     protected void onScreenShotTaken(String path, String fileName) {
-        ScreenShotActivity.startScreenShotActivity(ScreenShotService.this, path, fileName);
+        ScreenShotActivity.startScreenShotActivity(this, path, fileName);
     }
 }

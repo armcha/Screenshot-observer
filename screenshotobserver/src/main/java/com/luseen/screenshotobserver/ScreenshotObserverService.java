@@ -43,7 +43,6 @@ public abstract class ScreenshotObserverService extends Service {
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        Log.e("onTaskRemoved ", "onTaskRemoved");
         Intent restartServiceTask = new Intent(getApplicationContext(), this.getClass());
         restartServiceTask.setPackage(getPackageName());
         PendingIntent restartPendingIntent = PendingIntent.getService(getApplicationContext(), 1, restartServiceTask, PendingIntent.FLAG_ONE_SHOT);
