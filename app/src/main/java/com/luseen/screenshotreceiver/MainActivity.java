@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this, ScreenshotObserverService.class));
+        startService(new Intent(this, ScreenShotService.class));
     }
 }

@@ -1,30 +1,32 @@
-package com.luseen.screenshotreceiver;
+package com.luseen.screenshotobserver;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
-public class ScreenshotObserverService extends Service {
+public abstract class ScreenshotObserverService extends Service {
 
     private ScreenShotContentObserver screenShotContentObserver;
 
-    public ScreenshotObserverService() {
-    }
-
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new Binder();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("onCreate ", "onCreate");
         registerScreenShotObserver();
     }
 
@@ -39,6 +41,20 @@ public class ScreenshotObserverService extends Service {
         unRegisterScreenShotObserver();
     }
 
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Log.e("onTaskRemoved ", "onTaskRemoved");
+        Intent restartServiceTask = new Intent(getApplicationContext(), this.getClass());
+        restartServiceTask.setPackage(getPackageName());
+        PendingIntent restartPendingIntent = PendingIntent.getService(getApplicationContext(), 1, restartServiceTask, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager myAlarmService = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        myAlarmService.set(
+                AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + 1000,
+                restartPendingIntent);
+        super.onTaskRemoved(rootIntent);
+    }
+
     private void registerScreenShotObserver() {
         HandlerThread handlerThread = new HandlerThread("content_observer");
         handlerThread.start();
@@ -51,9 +67,9 @@ public class ScreenshotObserverService extends Service {
 
         screenShotContentObserver = new ScreenShotContentObserver(handler, this) {
             @Override
-            protected void onScreenShotTaken(String path, String fileName) {
-                super.onScreenShotTaken(path, fileName);
-                ScreenShotActivity.startScreenShotActivity(ScreenshotObserverService.this, path, fileName);
+            protected void onScreenShot(String path, String fileName) {
+                super.onScreenShot(path, fileName);
+                onScreenShotTaken(path, fileName);
             }
         };
 
@@ -67,4 +83,6 @@ public class ScreenshotObserverService extends Service {
     private void unRegisterScreenShotObserver() {
         getContentResolver().unregisterContentObserver(screenShotContentObserver);
     }
+
+    protected abstract void onScreenShotTaken(String path, String fileName);
 }

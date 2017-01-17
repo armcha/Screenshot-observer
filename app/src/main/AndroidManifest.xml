@@ -15,20 +15,20 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".ScreenshotObserverService"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity
             android:name=".ScreenShotActivity"
             android:label="@string/title_activity_screen_shot"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".ScreenShotService"
+            android:enabled="true"
+            android:stopWithTask="false"
+            android:exported="false" />
     </application>
 
 </manifest>

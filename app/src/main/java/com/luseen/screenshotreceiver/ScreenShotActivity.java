@@ -31,13 +31,9 @@ public class ScreenShotActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_shot);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         String path = getIntent().getStringExtra(PATH_INTENT_KEY);
         String fileName = getIntent().getStringExtra(FILENAME_INTENT_KEY);
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText("Path " + path + "\n\nFilename " + fileName);
 
         File imgFile = new File(path);
         if (imgFile.exists()) {

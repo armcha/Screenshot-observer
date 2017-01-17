@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ScreenshotReceiver.iml" filepath="$PROJECT_DIR$/ScreenshotReceiver.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/screenshotobserver/screenshotobserver.iml" filepath="$PROJECT_DIR$/screenshotobserver/screenshotobserver.iml" />
     </modules>
   </component>
 </project>
