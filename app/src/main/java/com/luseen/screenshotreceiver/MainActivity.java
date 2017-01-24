@@ -1,9 +1,15 @@
 package com.luseen.screenshotreceiver;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView serviceStatus;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +35,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_service:
-                startService(new Intent(this, ScreenShotService.class));
-                Toast.makeText(this, "ScreenShotService started", Toast.LENGTH_SHORT).show();
-                isServiceRunning();
+                if (isStoragePermissionGranted()) {
+                    startService(new Intent(this, ScreenShotService.class));
+                    Toast.makeText(this, "ScreenShotService started", Toast.LENGTH_SHORT).show();
+                    isServiceRunning();
+                } else {
+                    Log.e(TAG, "Permission Denial: requires android.permission.READ_EXTERNAL_STORAGE");
+                }
                 break;
             case R.id.stop_service:
                 stopService(new Intent(this, ScreenShotService.class));
@@ -52,5 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         serviceStatus.setText("ScreenShotService is running - " + false);
         return false;
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean isStoragePermissionGranted() {
+        String storagePermission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        return ContextCompat.checkSelfPermission(this, storagePermission) == PackageManager.PERMISSION_GRANTED;
     }
 }

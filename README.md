@@ -32,7 +32,8 @@ Step 2.
 Start your service from Activity
 ```startService(new Intent(this, ScreenShotService.class));```
 
-###Note: There is still some issue while editing the screenshot file
+###Note: For API 23 and higher you should grant READ_EXTERNAL_STORAGE permission and
+there is still some issue while editing the screenshot file
 
 ## Contact
 -----------------------
