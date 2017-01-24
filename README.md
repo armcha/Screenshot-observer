@@ -32,6 +32,7 @@ Step 2.
 Start your service from Activity
 ```startService(new Intent(this, ScreenShotService.class));```
 
+###Note: There is still some issue while editing the screenshot file
 
 ## Contact
 -----------------------
