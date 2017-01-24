@@ -26,7 +26,7 @@ dependencies {
 publish {
     groupId = 'com.github.armcha'
     artifactId = 'Screenshot-observer'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.0'
     desc = 'Screenshot-observer'
     licences = ['MIT']
     website = 'https://github.com/armcha/Screenshot-observer'
