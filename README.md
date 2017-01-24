@@ -25,7 +25,15 @@ compile 'com.github.armcha:Screenshot-observer:1.1.0'
 Step 1.
 Create service and extend it from ```ScreenshotObserverService``` and override ```onScreenShotTaken``` method
 
-![](screens/screen2.png)
+```java
+public class ScreenShotService extends ScreenshotObserverService {
+
+    @Override
+    protected void onScreenShotTaken(String path, String fileName) {
+        
+    }
+}
+```
 
 Step 2.
 Start your service from Activity
