@@ -1,5 +1,5 @@
 # Screenshot-observer
-This library will help you to receive android `screenshot events.
+This library will help you to receive android screenshot events.
 
 ![](screens/gif.gif)
 
