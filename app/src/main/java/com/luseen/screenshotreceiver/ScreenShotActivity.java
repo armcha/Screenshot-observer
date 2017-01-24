@@ -7,11 +7,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ScreenShotActivity extends AppCompatActivity {
@@ -21,7 +23,7 @@ public class ScreenShotActivity extends AppCompatActivity {
 
     public static void startScreenShotActivity(Context context, String path, String fileName) {
         Intent starter = new Intent(context, ScreenShotActivity.class);
-        starter.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        starter.setFlags(FLAG_ACTIVITY_CLEAR_TOP | FLAG_ACTIVITY_NEW_TASK);
         starter.putExtra(PATH_INTENT_KEY, path);
         starter.putExtra(FILENAME_INTENT_KEY, fileName);
         context.startActivity(starter);
@@ -34,7 +36,6 @@ public class ScreenShotActivity extends AppCompatActivity {
 
         String path = getIntent().getStringExtra(PATH_INTENT_KEY);
         String fileName = getIntent().getStringExtra(FILENAME_INTENT_KEY);
-
         File screenshotFile = new File(path);
         if (screenshotFile.exists()) {
             Bitmap screenshotBitmap = BitmapFactory.decodeFile(screenshotFile.getAbsolutePath());

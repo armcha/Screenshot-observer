@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 25
@@ -20,4 +21,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+publish {
+    groupId = 'com.github.armcha'
+    artifactId = 'Screenshot-observer'
+    publishVersion = '1.0.0'
+    desc = 'Screenshot-observer'
+    licences = ['MIT']
+    website = 'https://github.com/armcha/Screenshot-observer'
 }

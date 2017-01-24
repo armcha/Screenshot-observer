@@ -14,10 +14,11 @@ import java.io.File;
  * Created by Chatikyan on 08.01.2017.
  */
 
-class ScreenShotContentObserver extends ContentObserver {
+abstract class ScreenShotContentObserver extends ContentObserver {
 
-    private static final String TAG = ScreenShotContentObserver.class.getSimpleName();
     private Context context;
+    private boolean isFromEdit = false;
+    private String previousPath;
 
     ScreenShotContentObserver(Handler handler, Context context) {
         super(handler);
@@ -47,29 +48,19 @@ class ScreenShotContentObserver extends ContentObserver {
                 int dataColumnIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
                 String fileName = cursor.getString(displayNameColumnIndex);
                 String path = cursor.getString(dataColumnIndex);
-
                 if (new File(path).lastModified() >= System.currentTimeMillis() - 10000) {
-                    if (isScreenshot(path)) {
+                    if (isScreenshot(path) && !isFromEdit && !(previousPath!=null && previousPath.equals(path))) {
                         onScreenShot(path, fileName);
-                        Log.e(TAG, " Screen shot added " + fileName + " " + path);
-                        //Log.e(TAG, "DATE_TAKEN " + cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN));
-                        //Log.e(TAG, "DATE_ADDED " + cursor.getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
-                        // Toast.makeText(context, "Is screenshot", Toast.LENGTH_SHORT).show();
-                        //return;
-                    } else {
-                        // onScreenShotTaken(path, fileName);
-                        // Toast.makeText(context, "Not screenshot", Toast.LENGTH_SHORT).show();
-                        // Log.e(TAG, "Something changed, but it is not screenshot");
                     }
+                    previousPath = path;
+                    isFromEdit = false;
                 } else {
                     cursor.close();
                     return;
                 }
-            } else {
-                Log.e("onChange ", "Cursor is null");
             }
         } catch (Throwable t) {
-            Log.e("catch ", "Throwable " + t.getMessage());
+            isFromEdit = true;
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -82,6 +73,5 @@ class ScreenShotContentObserver extends ContentObserver {
         return path != null && path.toLowerCase().contains("screenshot");
     }
 
-    protected void onScreenShot(String path, String fileName) {
-    }
+    protected abstract void onScreenShot(String path, String fileName);
 }

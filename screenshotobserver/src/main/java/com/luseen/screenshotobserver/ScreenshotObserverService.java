@@ -64,10 +64,9 @@ public abstract class ScreenshotObserverService extends Service {
             }
         };
 
-        screenShotContentObserver = new ScreenShotContentObserver(handler, this) {
+        screenShotContentObserver = new ScreenShotContentObserver(handler,this) {
             @Override
             protected void onScreenShot(String path, String fileName) {
-                super.onScreenShot(path, fileName);
                 onScreenShotTaken(path, fileName);
             }
         };

@@ -43,9 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if ((getPackageName() + "." + ScreenShotService.class.getSimpleName()).equals(service.service.getClassName())) {
-                serviceStatus.setText("ScreenShotService is running - " + true);
-                return true;
+            if (service != null) {
+                if ((getPackageName() + "." + ScreenShotService.class.getSimpleName()).equals(service.service.getClassName())) {
+                    serviceStatus.setText("ScreenShotService is running - " + true);
+                    return true;
+                }
             }
         }
         serviceStatus.setText("ScreenShotService is running - " + false);
