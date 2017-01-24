@@ -2,9 +2,11 @@
 This library will help you to receive android `screenshot events.
 
 ![](screens/gif.gif)
-![](screens/screen.png)
 
 The current minSDK version is API level 15.
+![](screens/screen.png)
+-----------------------
+
 
 ## Download sample [apk][1]
 [1]: https://github.com/armcha/Screenshot-observer/raw/master/screens/Screenshot-observer-sample.apk
@@ -23,6 +25,7 @@ compile 'com.github.armcha:Screenshot-observer:1.0.0'
 
 Step 1.
 Create service and extend it from ```ScreenshotObserverService``` and override ```onScreenShotTaken``` method
+
 ![](screens/screen2.png)
 
 Step 2.
