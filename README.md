@@ -12,8 +12,7 @@ The current minSDK version is API level 15.
 [1]: https://github.com/armcha/Screenshot-observer/raw/master/screens/Screenshot-observer-sample.apk
 -----------------------
 
-#Download
------------------------
+##Download
 
 Gradle:
 ```groovy
